@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <style>
+        table {
+            width: 50%;
+            height: 300px;
+        }
+
+        #bottomline {
+            border-bottom: 1px solid black;
+        }
+
+        .tile {
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            cursor: pointer;
+        }
+
+        .display {
+            color: black;
+            font-size: 25px;
+            text-align: center;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .controls button {
+            color: black;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            font-size: 20px;
+            margin-left: 1em;
+            cursor: pointer;
+        }
+
+        .restart {
+            background-color: #498AFB;
+        }
+
+        #reset {
+            background-color: #FF3860;
+        }
+    </style>
+
+</head>
+
+<body>
+    <center>
+        <h1> TIC TAC TOE </h1><br>
+
+        <section class="display">
+            Player <span class="display-player playerX">X</span>'s turn
+        </section><br><br>
+
+        <table rules="cols">
+            <tr id="bottomline">
+                <td class="tile"></td>
+                <td class="tile"></td>
+                <td class="tile"></td>
+            </tr>
+            <tr id="bottomline">
+                <td class="tile"></td>
+                <td class="tile"></td>
+                <td class="tile"></td>
+            </tr>
+            <tr>
+                <td class="tile"></td>
+                <td class="tile"></td>
+                <td class="tile"></td>
+            </tr>
+        </table><br><br>
+
+        <section class="display announcer hide"></section><br><br>
+
+        <section class="controls">
+            <button id="reset">Reset</button>
+        </section>
+
+    </center>
+    <script>
+
+    </script>
+
+
+</body>
+
+</html>
