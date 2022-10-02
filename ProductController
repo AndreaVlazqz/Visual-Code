@@ -1,0 +1,74 @@
+package com.ezbuy.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ezbuy.entity.Product;
+import com.ezbuy.repository.ProductRepository;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+public class ProductsControllerEntity {
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping("/api/v1/products")
+    public List<Product> getProductEntityList() {
+        List<Product> productEntityList = productRepository.findAll();
+        return productEntityList;
+    }
+    
+    //another way to select all the rows
+    @GetMapping("/api/v1/products/select")
+    public @ResponseBody Iterable<Product> selectAllProducts(){
+    	//this returns a JSON or XML with the products
+    	return productRepository.findAll();
+    }
+
+    // to insert directly 
+    @GetMapping("/api/v1/products/add")
+    public Product createProduct() {
+        Product productEntity = new Product();
+        productEntity.setProductName("Headphones");
+        productEntity.setPrice(1200);
+        productEntity.setAvailable(true);
+        String str = "2015-03-31";
+        Date date = Date.valueOf(str);  //converting String into sql date
+        productEntity.setProductReleaseDate(date);
+        Product savedProductEntity = productRepository.save(productEntity);
+        return savedProductEntity;
+    }
+    
+    //to get employee data from the user through postman and angular forms
+    @PostMapping("/api/v1/products/add")
+    public Product createEmployee(@RequestBody Product productEntity) {
+        Product savedProductEntity = productRepository.save(productEntity);
+        return savedProductEntity;
+    }
+    
+    @DeleteMapping("/api/v1/products/delete/{id}")
+	public String deleteProduct(@PathVariable int id) {
+		Optional<Product> product = productRepository.findById(id);
+		if(product.isPresent()) {
+			productRepository.delete(product.get());
+			return "Product is deleted with id " + id;
+		}else {
+			throw new RuntimeException("Product not found for the id " + id);
+		}
+	}
+	
+	@PutMapping("/api/v1/products/update")
+	public Product updateProduct(@RequestBody Product productObj) {
+		return productRepository.save(productObj);
+	}
+}
